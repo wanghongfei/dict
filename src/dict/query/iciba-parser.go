@@ -16,7 +16,6 @@ func (me *IcibaParser) Parse(html string) *model.Word {
 
 	// 构造单词对象
 	word := &model.Word{}
-	word.Literal = "escape"
 	word.Exps = make([]*model.Explanation, 0, 5)
 
 	// 读取html字符串

@@ -11,8 +11,7 @@ import (
 )
 
 func main() {
-	//argWord := "hello"
-	argWord := "a12"
+	argWord := "hello"
 
 	// 取命令行参数
 	if len(os.Args) > 1 {
@@ -25,6 +24,7 @@ func main() {
 	// 解析
 	parser := new(query.IcibaParser)
 	word := parser.Parse(html)
+	word.Literal = argWord
 
 	// 打印
 	show(word)
@@ -50,7 +50,7 @@ func trimString(str string) string {
 
 func show(word *model.Word) {
 	if word == model.EmptyWord {
-		fmt.Println("未查到释义\n")
+		fmt.Println("未查到释义")
 		return
 	}
 
