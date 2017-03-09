@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"net/http"
 	"io/ioutil"
-	"dict/query"
+	"dict/client/query"
 	"os"
 	"strings"
-	"dict/model"
+	"dict/client/model"
 )
 
 func main() {

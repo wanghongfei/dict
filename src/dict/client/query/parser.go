@@ -1,6 +1,6 @@
 package query
 
-import "dict/model"
+import "dict/client/model"
 
 // html解析器
 type Parser interface {
