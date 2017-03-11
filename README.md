@@ -46,7 +46,7 @@ water - 美 [ˈwɔtɚ, ˈwɑtɚ]
 ## 编译
 项目clone下来后, 把项目目录设为`GOPATH`, 然后执行
 ```
-go install dict
+go install dict/client
 ```
 
 ## 正在开发的功能
