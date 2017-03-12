@@ -2,11 +2,6 @@ package handler
 
 import (
 	"net/http"
-	"dict/common"
-	"encoding/json"
-	"io/ioutil"
-	"log"
-	"io"
 )
 
 //JsonHandler实现了http.Handler接口,因此可以直接
@@ -34,30 +29,3 @@ func (me JsonHandlerProxy) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	me.handler.ServeHTTP(w, req)
 }
 
-type QueryHandler struct {
-
-}
-
-func (me QueryHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	// 只支持POST请求
-	if req.Method != "POST" {
-		result := common.NewErrorDictMessage(common.ST_INVALID_METHOD)
-		buf, _ := json.Marshal(result)
-		w.Write(buf)
-
-		return
-	}
-
-	// 读取请求体
-	buf, _ := ioutil.ReadAll(req.Body)
-
-	// 反序列化
-	payload := &common.DictMessage{}
-	json.Unmarshal(buf, payload)
-
-	log.Println(string(buf))
-	log.Println(payload)
-
-	io.WriteString(w, "OK")
-
-}
