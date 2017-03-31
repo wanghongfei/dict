@@ -2,12 +2,10 @@ package main
 
 import (
 	"fmt"
-	"net/http"
-	"io/ioutil"
-	"dict/client/query"
+	"dict/query"
 	"os"
 	"strings"
-	"dict/client/model"
+	"dict/model"
 )
 
 func main() {
@@ -19,7 +17,7 @@ func main() {
 	}
 
 	// GET请求
-	html := getHtml("http://iciba.com/" + argWord)
+	html := query.GetHtml("http://iciba.com/" + argWord)
 
 	// 解析
 	parser := new(query.IcibaParser)
@@ -33,14 +31,6 @@ func main() {
 
 }
 
-// 下载html代码
-func getHtml(url string) string {
-	resp, _ := http.Get(url)
-	defer resp.Body.Close()
-
-	buf, _ := ioutil.ReadAll(resp.Body)
-	return string(buf)
-}
 
 func trimString(str string) string {
 	s1 := strings.TrimLeft(str, "\n ")

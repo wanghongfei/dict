@@ -1,6 +1,6 @@
 package store
 
-import "dict/client/model"
+import "dict/model"
 
 // 定义单词存储方法
 type WordStore interface {

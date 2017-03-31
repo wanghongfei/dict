@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"dict/common"
 	"encoding/json"
-	"dict/client/model"
+	"dict/model"
 )
 
 // 响应错误信息

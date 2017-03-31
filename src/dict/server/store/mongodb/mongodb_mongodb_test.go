@@ -2,7 +2,7 @@ package mongodb
 
 import (
 	"testing"
-	"dict/client/model"
+	"dict/model"
 )
 
 var wordApple *model.Word

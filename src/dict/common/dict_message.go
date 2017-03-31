@@ -1,6 +1,6 @@
 package common
 
-import "dict/client/model"
+import "dict/model"
 
 // 通信数据格式
 type DictMessage struct {

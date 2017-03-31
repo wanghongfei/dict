@@ -1,7 +1,7 @@
 package query
 
 import (
-	"dict/client/model"
+	"dict/model"
 	"github.com/PuerkitoBio/goquery"
 	"strings"
 	"fmt"

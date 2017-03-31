@@ -1,7 +1,7 @@
 package mongodb
 
 import (
-	"dict/client/model"
+	"dict/model"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
