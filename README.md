@@ -48,6 +48,7 @@ water - 美 [ˈwɔtɚ, ˈwɑtɚ]
 ```
 go install dict/client
 ```
+项目使用vendor机制管理第三方依赖，必须使用go1.6以上版本编译，否则需要通过`govendor`命令进行编译
 
 ## 正在开发的功能
 - dict-server。用于构建单词数据库, 在服务端运行，接收dict-client的查询请求. dict-server从爱词霸爬到结果后写入到本地数据库中, 第二次查该单词时会直接从数据库中读取
