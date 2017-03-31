@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"dict/server/handler"
@@ -16,7 +15,5 @@ func main()  {
 	if nil != err {
 		log.Fatal(err)
 	}
-
-	fmt.Println("hello, server")
 }
 

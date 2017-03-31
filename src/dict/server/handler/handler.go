@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"dict/server/logic"
 )
 
 type QueryHandler struct {
@@ -27,8 +28,10 @@ func (me QueryHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	payload := &common.DictMessage{}
 	json.Unmarshal(buf, payload)
 
+	result := logic.QueryWord(payload.Word)
+
 	log.Println(string(buf))
 	log.Println(payload)
 
-	SendResultMessage(w, nil)
+	SendResultMessage(w, result)
 }

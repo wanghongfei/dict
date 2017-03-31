@@ -23,5 +23,5 @@ func SendResultMessage(w http.ResponseWriter, word *model.Word) error {
 
 	w.Write(buf)
 
-	return err;
+	return err
 }

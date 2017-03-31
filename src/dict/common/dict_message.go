@@ -21,6 +21,7 @@ type DictMessage struct {
 	Cached bool `json:"cached"`
 }
 
+// op字段常量
 const (
 	// 查询
 	OP_QUERY = 1
@@ -29,11 +30,14 @@ const (
 	OP_RESULT
 )
 
+// st字段常理
 const (
 	ST_SUCCESS = 0
 	ST_FAILED = 1
 	ST_INVALID_METHOD = 2
 )
+
+const URL_ICIBA = "http://iciba.com/"
 
 // 创建单词查询请求数据
 // word是要查询的单词
