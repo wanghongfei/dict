@@ -48,7 +48,7 @@ func (me *IcibaParser) Parse(html string) *model.Word {
 		exp.Property = node.Find(".size-chinese .family-english").First().Text()
 		exp.CnExplanation = node.Find(".size-chinese .family-chinese").Text()
 		exp.EnExplanation = node.Find(".size-chinese .prep-en").Text()
-		exp.Sentences = make([]model.Sentence, 0, 5)
+		exp.Sentences = make([]*model.Sentence, 0, 5)
 
 		word.Exps = append(word.Exps, exp)
 
@@ -58,7 +58,7 @@ func (me *IcibaParser) Parse(html string) *model.Word {
 			sentence.English = node.Find(".family-english").Text()
 			sentence.Chinese = node.Find(".family-chinese").Text()
 
-			exp.Sentences = append(exp.Sentences, sentence)
+			exp.Sentences = append(exp.Sentences, &sentence)
 		})
 	})
 

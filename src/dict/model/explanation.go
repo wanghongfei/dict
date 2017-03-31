@@ -17,7 +17,7 @@ type Explanation struct {
 	// 中文解释
 	CnExplanation string
 	// 例句
-	Sentences []Sentence
+	Sentences []*Sentence
 }
 
 func (me Explanation) String() string {

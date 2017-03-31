@@ -8,6 +8,7 @@ import (
 	"dict/query"
 	"dict/common"
 	"strings"
+	"fmt"
 )
 
 var wordDao store.WordStore
@@ -56,6 +57,8 @@ func TrimResult(word *model.Word) {
 			sentence.English = trimString(sentence.English)
 		}
 	}
+
+	fmt.Println(word)
 }
 
 // 去掉字符串开头和结尾的空格, 换行
