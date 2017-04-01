@@ -34,6 +34,12 @@ func QueryWord(word string) *model.Word {
 	// 没查到, 从远程查询
 	parser := new(query.IcibaParser)
 	remoteResult := parser.Parse(query.GetHtml(common.URL_ICIBA + word))
+	if remoteResult == model.EmptyWord {
+		// 没查到
+		log.Printf("未从远程查到单词%s\n", word)
+		return remoteResult
+	}
+
 	remoteResult.Literal = word
 
 	// 保存到本地

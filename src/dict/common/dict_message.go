@@ -14,7 +14,7 @@ type DictMessage struct {
 	Word string `json:"word"`
 
 	// 查询结果
-	Result *model.Word `json:"result"`
+	Result *model.Word `json:"result,omitempty"`
 
 	// 为true时表示是从数据库中取到的数据
 	// 为false表示从远端抓取的数据

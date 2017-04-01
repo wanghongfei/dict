@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"dict/server/logic"
+	"dict/model"
 )
 
 type QueryHandler struct {
@@ -29,6 +30,10 @@ func (me QueryHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	json.Unmarshal(buf, payload)
 
 	result := logic.QueryWord(payload.Word)
+	if result == model.EmptyWord {
+		SendErrorMessage(w, common.ST_FAILED)
+		return
+	}
 
 	log.Println(string(buf))
 	log.Println(payload)
