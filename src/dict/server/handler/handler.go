@@ -5,7 +5,6 @@ import (
 	"dict/common"
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"dict/server/logic"
 	"dict/model"
 )
@@ -15,11 +14,10 @@ type QueryHandler struct {
 }
 
 // 响应查询请求
-func (me QueryHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+func (me *QueryHandler) Handle(req *http.Request) *common.DictMessage {
 	// 只支持POST请求
 	if req.Method != "POST" {
-		SendErrorMessage(w, common.ST_INVALID_METHOD)
-		return
+		return common.NewErrorDictMessage(common.ST_INVALID_METHOD)
 	}
 
 	// 读取请求体
@@ -29,14 +27,17 @@ func (me QueryHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	payload := &common.DictMessage{}
 	json.Unmarshal(buf, payload)
 
+	// 调用业务逻辑
 	result := logic.QueryWord(payload.Word)
+
+	// 没查到
 	if result == model.EmptyWord {
-		SendErrorMessage(w, common.ST_FAILED)
-		return
+		return common.NewErrorDictMessage(common.ST_FAILED)
 	}
 
-	log.Println(string(buf))
-	log.Println(payload)
+	//log.Println(string(buf))
+	//log.Println(payload)
 
-	SendResultMessage(w, result)
+	//SendResultMessage(w, result)
+	return common.NewResultDictMessage(result, false)
 }

@@ -9,7 +9,7 @@ import (
 func main()  {
 	log.Println("启动server")
 
-	http.Handle("/query", handler.NewHandler(handler.QueryHandler{}))
+	http.Handle("/query", handler.NewHandler(new(handler.QueryHandler)))
 
 	err := http.ListenAndServe(":9000", nil)
 	if nil != err {
