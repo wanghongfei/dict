@@ -14,7 +14,7 @@ import (
 var wordDao store.WordStore
 
 // 初始化mongodb连接
-func init()  {
+func initMongodb()  {
 	log.Println("连接mongodb")
 	mongoDao, err := mongodb.NewMongodbStore("127.0.0.1")
 	if nil != err {
@@ -26,6 +26,10 @@ func init()  {
 
 // 先从库中查询, 没有则爬取远程, 最后保存到库中
 func QueryWord(word string) *model.Word {
+	if nil == wordDao {
+		initMongodb()
+	}
+
 	// 从库中查询
 	result := wordDao.Load(word)
 	if "" != result.Literal {
