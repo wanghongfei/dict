@@ -15,6 +15,7 @@ var wordDao store.WordStore
 
 // 初始化mongodb连接
 func init()  {
+	log.Println("连接mongodb")
 	mongoDao, err := mongodb.NewMongodbStore("127.0.0.1")
 	if nil != err {
 		log.Fatal(err)
