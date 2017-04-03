@@ -3,32 +3,53 @@ package main
 import (
 	"fmt"
 	"dict/query"
-	"os"
 	"strings"
 	"dict/model"
+	"flag"
+	"dict/common"
+	"encoding/json"
 )
 
 func main() {
-	argWord := "hello"
-
 	// 取命令行参数
-	if len(os.Args) > 1 {
-		argWord = os.Args[1]
-	}
+	wordToQuery := flag.String("w", "", "指定要查询的单词")
+	dictServer := flag.String("host", "127.0.0.1", "指定dict服务地址")
+	dictPort := flag.String("port", "9000", "指定dict服务端口")
+	queryFromIciba := flag.Bool("-iciba", false, "带上该标记表示直接从iciba爬取")
+	flag.Parse()
 
-	// GET请求
-	html := query.GetHtml("http://iciba.com/" + argWord)
+	if queryFromIciba {
+		result := queryIciba(*wordToQuery)
+		show(result)
+
+	} else {
+		result := queryDictServer(*wordToQuery, *dictServer, *dictPort)
+		show(result)
+	}
+}
+
+func queryDictServer(word, dictServer, dictPort string) *model.Word {
+	host := "http://" + dictServer + ":" + dictPort
+
+	pkg := buildQueryRequest(word)
+	buf, _ := json.Marshal(pkg)
+	resp := query.Post(host, buf)
+
+	result := new(model.Word)
+	json.Unmarshal([]byte(resp), result)
+
+	return result
+}
+
+func queryIciba(word string) *model.Word {
+	html := query.GetHtml("http://iciba.com/" + word)
 
 	// 解析
 	parser := new(query.IcibaParser)
-	word := parser.Parse(html)
-	word.Literal = argWord
+	result := parser.Parse(html)
+	result.Literal = word
 
-	// 打印
-	show(word)
-
-
-
+	return result
 }
 
 
@@ -52,5 +73,12 @@ func show(word *model.Word) {
 			fmt.Printf("\t%d. %s(%s)\n", ix + 1, trimString(sentence.English), trimString(sentence.Chinese))
 		}
 
+	}
+}
+
+func buildQueryRequest(word string) *common.DictMessage  {
+	return &common.DictMessage{
+		Op: common.OP_QUERY,
+		Word: word,
 	}
 }
