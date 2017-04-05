@@ -6,7 +6,7 @@
 
 ## 使用方法
 ```
-./dict water // 查water单词
+./dict -w water -iciba // 查water单词, 并指定直接从爱词霸爬取而不是连接dict-server
 ```
 输出:
 ```
