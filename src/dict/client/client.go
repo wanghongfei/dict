@@ -8,6 +8,7 @@ import (
 	"flag"
 	"dict/common"
 	"encoding/json"
+	"os"
 )
 
 func main() {
@@ -29,16 +30,24 @@ func main() {
 }
 
 func queryDictServer(word, dictServer, dictPort string) *model.Word {
-	host := "http://" + dictServer + ":" + dictPort
+	host := "http://" + dictServer + ":" + dictPort + "/query"
 
+	// 生成请求消息对象
 	pkg := buildQueryRequest(word)
+	// 序列化
 	buf, _ := json.Marshal(pkg)
+	// POST请求
 	resp := query.Post(host, buf)
 
-	result := new(model.Word)
-	json.Unmarshal([]byte(resp), result)
+	// 反序列化结果
+	result := new(common.DictMessage)
+	err := json.Unmarshal([]byte(resp), result)
+	if nil != err {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 
-	return result
+	return result.Result
 }
 
 func queryIciba(word string) *model.Word {
