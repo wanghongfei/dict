@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"io/ioutil"
 	"log"
-	"strings"
 	"bytes"
 )
 

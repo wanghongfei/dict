@@ -15,10 +15,10 @@ func main() {
 	wordToQuery := flag.String("w", "", "指定要查询的单词")
 	dictServer := flag.String("host", "127.0.0.1", "指定dict服务地址")
 	dictPort := flag.String("port", "9000", "指定dict服务端口")
-	queryFromIciba := flag.Bool("-iciba", false, "带上该标记表示直接从iciba爬取")
+	queryFromIciba := flag.Bool("iciba", false, "带上该标记表示直接从iciba爬取")
 	flag.Parse()
 
-	if queryFromIciba {
+	if *queryFromIciba {
 		result := queryIciba(*wordToQuery)
 		show(result)
 
