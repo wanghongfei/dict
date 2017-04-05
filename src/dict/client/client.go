@@ -9,6 +9,7 @@ import (
 	"dict/common"
 	"encoding/json"
 	"os"
+	"dict/utils"
 )
 
 func main() {
@@ -30,7 +31,13 @@ func main() {
 }
 
 func queryDictServer(word, dictServer, dictPort string) *model.Word {
-	host := "http://" + dictServer + ":" + dictPort + "/query"
+	host := utils.Concat([]string {
+		"http://",
+		dictServer,
+		":",
+		dictPort,
+		"/query",
+	})
 
 	// 生成请求消息对象
 	pkg := buildQueryRequest(word)
